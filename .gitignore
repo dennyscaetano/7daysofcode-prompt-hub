@@ -1,0 +1,34 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Logs
+logs
+*.log
+
+# Environment
+.env
+.env.*
+
+# TypeScript
+*.tsbuildinfo
+
+# Build
+/dist
+/build
+
+# VSCode
+.vscode/
+
+# MacOS
+.DS_Store
+
+# Others
+coverage/
+
+# Optional
+.idea/
+*.sublime-workspace
+*.sublime-project

@@ -1,0 +1,27 @@
+meta {
+  name: Chat
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseURL}}/api/v1/chat
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  x-goog-api-key: AIzaSyDEbyqlnCWEuRxweYC9-rerd1t7isRlcqc
+}
+
+body:json {
+  {
+    "prompt": "Qual é o nome capital do estado da Bahia situado na região nordeste do Brasil?"
+  }
+}
+
+settings {
+  encodeUrl: false
+  timeout: 0
+}
