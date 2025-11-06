@@ -1,0 +1,26 @@
+{
+  "name": "prompt-hub",
+  "version": "1.0.0",
+  "description": "An application for managing and reusing prompt templates across different Artificial Intelligence services. It allows you to organize, version, and share prompts centrally, optimizing workflows and promoting consistency in interactions with AI models.",
+  "homepage": "https://github.com/dennyscaetano/7daysofcode-prompt-hub#readme",
+  "bugs": {
+    "url": "https://github.com/dennyscaetano/7daysofcode-prompt-hub/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dennyscaetano/7daysofcode-prompt-hub.git"
+  },
+  "license": "ISC",
+  "author": "Dennys Matos",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "node-fetch": "^3.3.2"
+  },
+  "keywords": []
+}

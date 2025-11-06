@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "prompt-hub",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}
