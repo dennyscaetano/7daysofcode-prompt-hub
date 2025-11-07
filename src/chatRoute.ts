@@ -3,7 +3,11 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const router = express.Router();
 
-const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENAI_API_KEY || "AIzaSyDEbyqlnCWEuRxweYC9-rerd1t7isRlcqc");
+const apiKey = process.env.GOOGLE_GENAI_API_KEY;
+if (!apiKey) {
+	throw new Error("Missing GOOGLE_GENAI_API_KEY environment variable");
+}
+const genAI = new GoogleGenerativeAI(apiKey);
 
 router.post("/api/v1/chat", async (req, res) => {
 	try {
