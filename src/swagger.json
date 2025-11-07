@@ -1,0 +1,135 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Prompt Hub API",
+    "version": "1.0.0",
+    "description": "Documentação da API Prompt Hub"
+  },
+  "paths": {
+    "/api/v1/templates": {
+      "get": {
+        "summary": "Lista todos os templates",
+        "responses": {
+          "200": {
+            "description": "Lista de templates"
+          }
+        }
+      },
+      "post": {
+        "summary": "Cadastra um template",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Template"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Template criado"
+          }
+        }
+      }
+    },
+    "/api/v1/templates/{id}": {
+      "get": {
+        "summary": "Busca template por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Template encontrado" },
+          "404": { "description": "Template não encontrado" }
+        }
+      },
+      "put": {
+        "summary": "Edita um template",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Template"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Template atualizado" },
+          "404": { "description": "Template não encontrado" }
+        }
+      },
+      "delete": {
+        "summary": "Deleta um template",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "204": { "description": "Template deletado" },
+          "404": { "description": "Template não encontrado" }
+        }
+      }
+    },
+    "/api/v1/chat": {
+      "post": {
+        "summary": "Gera conteúdo usando Gemini",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "prompt": { "type": "string" }
+                },
+                "required": ["prompt"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Conteúdo gerado" },
+          "400": { "description": "Prompt obrigatório" },
+          "500": { "description": "Erro ao gerar conteúdo" }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Template": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "content": { "type": "string" },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" }
+        },
+        "required": ["name", "content"]
+      }
+    }
+  }
+}
