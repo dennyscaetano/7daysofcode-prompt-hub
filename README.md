@@ -1,3 +1,8 @@
+### Ordenar templates por nome
+```bash
+curl "http://localhost:3007/api/v1/templates?order=asc"
+curl "http://localhost:3007/api/v1/templates?order=desc"
+```
 # 7DaysOfCode - Prompt Hub
 
 Prompt Hub é uma aplicação backend desenvolvida para gerenciar templates de prompts reutilizáveis em diversos serviços de Inteligência Artificial, como ChatGPT e Gemini. O projeto também integra a API do Gemini, permitindo testar e validar prompts diretamente pela plataforma.
@@ -46,9 +51,47 @@ npm start
 
 O backend estará disponível em `http://localhost:3007` (ou porta configurada).
 
-## Testando Prompts
-- Utilize os endpoints da API para cadastrar, listar e testar templates de prompts.
-- Para testar prompts diretamente na API Gemini, utilize o endpoint dedicado e forneça o template desejado.
+
+## Endpoints CRUD de Templates
+
+### Criar template
+```bash
+curl -X POST http://localhost:3007/api/v1/templates \
+	-H "Content-Type: application/json" \
+	-d '{"name":"Exemplo","content":"Conteúdo do template","description":"Descrição opcional"}'
+```
+
+
+### Listar todos os templates (com paginação)
+```bash
+curl "http://localhost:3007/api/v1/templates?page=1&limit=5"
+```
+
+### Filtrar templates por nome
+```bash
+curl "http://localhost:3007/api/v1/templates?name=Exemplo"
+```
+
+### Buscar template por ID
+```bash
+curl http://localhost:3007/api/v1/templates/<ID_DO_TEMPLATE>
+```
+
+### Editar template
+```bash
+curl -X PUT http://localhost:3007/api/v1/templates/<ID_DO_TEMPLATE> \
+	-H "Content-Type: application/json" \
+	-d '{"name":"Novo nome"}'
+```
+
+### Deletar template
+```bash
+curl -X DELETE http://localhost:3007/api/v1/templates/<ID_DO_TEMPLATE>
+```
+
+Substitua `<ID_DO_TEMPLATE>` pelo id retornado na criação.
+
+Para testar prompts diretamente na API Gemini, utilize o endpoint dedicado e forneça o template desejado.
 
 ## Boas Práticas
 - Mantenha os templates organizados na pasta `resources/`.

@@ -1,3 +1,10 @@
+          {
+            "name": "order",
+            "in": "query",
+            "description": "Ordenação pelo nome (asc ou desc)",
+            "required": false,
+            "schema": { "type": "string", "enum": ["asc", "desc"], "default": "asc" }
+          },
 {
   "openapi": "3.0.0",
   "info": {
@@ -9,9 +16,67 @@
     "/api/v1/templates": {
       "get": {
         "summary": "Lista todos os templates",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Número da página",
+            "required": false,
+            "schema": { "type": "integer", "default": 1 }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Quantidade de itens por página",
+            "required": false,
+            "schema": { "type": "integer", "default": 10 }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "Filtro pelo nome do template",
+            "required": false,
+            "schema": { "type": "string" }
+          }
+        ],
         "responses": {
           "200": {
-            "description": "Lista de templates"
+            "description": "Lista de templates",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/Template" }
+                    },
+                    "page": { "type": "integer" },
+                    "limit": { "type": "integer" },
+                    "total": { "type": "integer" }
+                  }
+                },
+                "examples": {
+                  "templates": {
+                    "value": {
+                      "data": [
+                        {
+                          "id": "abc123",
+                          "name": "Exemplo",
+                          "description": "Descrição do template",
+                          "content": "Conteúdo do template",
+                          "createdAt": "2025-11-07T12:00:00Z",
+                          "updatedAt": "2025-11-07T12:00:00Z"
+                        }
+                      ],
+                      "page": 1,
+                      "limit": 10,
+                      "total": 1
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -29,8 +94,26 @@
         },
         "responses": {
           "201": {
-            "description": "Template criado"
-          }
+            "description": "Template criado",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Template" },
+                "examples": {
+                  "template": {
+                    "value": {
+                      "id": "abc123",
+                      "name": "Exemplo",
+                      "description": "Descrição do template",
+                      "content": "Conteúdo do template",
+                      "createdAt": "2025-11-07T12:00:00Z",
+                      "updatedAt": "2025-11-07T12:00:00Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": { "description": "Dados inválidos" }
         }
       }
     },
@@ -46,8 +129,22 @@
           }
         ],
         "responses": {
-          "200": { "description": "Template encontrado" },
-          "404": { "description": "Template não encontrado" }
+          "200": {
+            "description": "Template encontrado",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Template" }
+              }
+            }
+          },
+          "404": {
+            "description": "Template não encontrado",
+            "content": {
+              "application/json": {
+                "schema": { "type": "object", "properties": { "error": { "type": "string" } } }
+              }
+            }
+          }
         }
       },
       "put": {
@@ -71,8 +168,23 @@
           }
         },
         "responses": {
-          "200": { "description": "Template atualizado" },
-          "404": { "description": "Template não encontrado" }
+          "200": {
+            "description": "Template atualizado",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Template" }
+              }
+            }
+          },
+          "400": { "description": "Dados inválidos" },
+          "404": {
+            "description": "Template não encontrado",
+            "content": {
+              "application/json": {
+                "schema": { "type": "object", "properties": { "error": { "type": "string" } } }
+              }
+            }
+          }
         }
       },
       "delete": {
@@ -87,7 +199,14 @@
         ],
         "responses": {
           "204": { "description": "Template deletado" },
-          "404": { "description": "Template não encontrado" }
+          "404": {
+            "description": "Template não encontrado",
+            "content": {
+              "application/json": {
+                "schema": { "type": "object", "properties": { "error": { "type": "string" } } }
+              }
+            }
+          }
         }
       }
     },
