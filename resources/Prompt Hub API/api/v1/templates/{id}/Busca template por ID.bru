@@ -1,0 +1,15 @@
+meta {
+  name: Busca template por ID
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/v1/templates/:id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  id: 
+}

@@ -1,0 +1,11 @@
+meta {
+  name: Lista todos os templates
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/v1/templates
+  body: none
+  auth: inherit
+}

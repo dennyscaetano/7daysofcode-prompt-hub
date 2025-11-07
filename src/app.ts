@@ -1,6 +1,7 @@
 import express from 'express';
 import templateController from './controllers/template.controller';
 import chatController from './controllers/chat.controller';
+import 'dotenv/config';
 import path from 'path';
 import fs from 'fs';
 
