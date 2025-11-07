@@ -1,0 +1,254 @@
+          {
+            "name": "order",
+            "in": "query",
+            "description": "Ordenação pelo nome (asc ou desc)",
+            "required": false,
+            "schema": { "type": "string", "enum": ["asc", "desc"], "default": "asc" }
+          },
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Prompt Hub API",
+    "version": "1.0.0",
+    "description": "Documentação da API Prompt Hub"
+  },
+  "paths": {
+    "/api/v1/templates": {
+      "get": {
+        "summary": "Lista todos os templates",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Número da página",
+            "required": false,
+            "schema": { "type": "integer", "default": 1 }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Quantidade de itens por página",
+            "required": false,
+            "schema": { "type": "integer", "default": 10 }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "Filtro pelo nome do template",
+            "required": false,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de templates",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/Template" }
+                    },
+                    "page": { "type": "integer" },
+                    "limit": { "type": "integer" },
+                    "total": { "type": "integer" }
+                  }
+                },
+                "examples": {
+                  "templates": {
+                    "value": {
+                      "data": [
+                        {
+                          "id": "abc123",
+                          "name": "Exemplo",
+                          "description": "Descrição do template",
+                          "content": "Conteúdo do template",
+                          "createdAt": "2025-11-07T12:00:00Z",
+                          "updatedAt": "2025-11-07T12:00:00Z"
+                        }
+                      ],
+                      "page": 1,
+                      "limit": 10,
+                      "total": 1
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Cadastra um template",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Template"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Template criado",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Template" },
+                "examples": {
+                  "template": {
+                    "value": {
+                      "id": "abc123",
+                      "name": "Exemplo",
+                      "description": "Descrição do template",
+                      "content": "Conteúdo do template",
+                      "createdAt": "2025-11-07T12:00:00Z",
+                      "updatedAt": "2025-11-07T12:00:00Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": { "description": "Dados inválidos" }
+        }
+      }
+    },
+    "/api/v1/templates/{id}": {
+      "get": {
+        "summary": "Busca template por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Template encontrado",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Template" }
+              }
+            }
+          },
+          "404": {
+            "description": "Template não encontrado",
+            "content": {
+              "application/json": {
+                "schema": { "type": "object", "properties": { "error": { "type": "string" } } }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Edita um template",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Template"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Template atualizado",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Template" }
+              }
+            }
+          },
+          "400": { "description": "Dados inválidos" },
+          "404": {
+            "description": "Template não encontrado",
+            "content": {
+              "application/json": {
+                "schema": { "type": "object", "properties": { "error": { "type": "string" } } }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Deleta um template",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "204": { "description": "Template deletado" },
+          "404": {
+            "description": "Template não encontrado",
+            "content": {
+              "application/json": {
+                "schema": { "type": "object", "properties": { "error": { "type": "string" } } }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/chat": {
+      "post": {
+        "summary": "Gera conteúdo usando Gemini",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "prompt": { "type": "string" }
+                },
+                "required": ["prompt"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Conteúdo gerado" },
+          "400": { "description": "Prompt obrigatório" },
+          "500": { "description": "Erro ao gerar conteúdo" }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Template": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "content": { "type": "string" },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" }
+        },
+        "required": ["name", "content"]
+      }
+    }
+  }
+}

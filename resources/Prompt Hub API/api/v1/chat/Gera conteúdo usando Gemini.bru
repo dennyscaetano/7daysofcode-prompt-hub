@@ -1,0 +1,21 @@
+meta {
+  name: Gera conteúdo usando Gemini
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/api/v1/chat
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "prompt": "Qual a capital do Brasil?"
+  }
+}

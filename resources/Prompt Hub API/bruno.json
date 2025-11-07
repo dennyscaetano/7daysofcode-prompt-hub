@@ -1,6 +1,6 @@
 {
   "version": "1",
-  "name": "prompt-hub",
+  "name": "Prompt Hub API",
   "type": "collection",
   "ignore": [
     "node_modules",

@@ -1,0 +1,19 @@
+meta {
+  name: Cadastra um template
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/api/v1/templates
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name": "Comentário linkedin",
+    "description": "Me dê sugestão de uma resposta inteligente para publicação no linkedin que gere engajamento, com linguagem natural, sem emojis, travessões ou com termos exagerados",
+    "content": "Me dê sugestão de uma resposta inteligente para publicação no linkedin que gere engajamento, com linguagem natural, sem emojis, travessões ou com termos exagerados"
+  }
+}
